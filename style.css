@@ -1,0 +1,323 @@
+:root {
+    --dark-raspberry: #861657;
+    --dusty-mauve: #A64253;
+    --sweet-peony: #D56AA0;
+    --celadon: #BBDBB4;
+    --cornsilk: #FCF0CC;
+    --white: #ffffff;
+    --black: #000000;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --font-mono: 'Space Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-mono);
+    background-color: var(--cornsilk);
+    color: var(--black);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#app {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.view {
+    transition: opacity 0.3s ease-in-out;
+}
+
+.view.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* --- Wall View --- */
+
+.wall-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-top: 2rem;
+}
+
+.wall-header h1 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.wall-header p {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.sticky-note {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 1.5rem;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 4px 4px 0px var(--black);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sticky-note:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0px var(--black);
+}
+
+.note-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    height: 100%;
+}
+
+.poem-title {
+    font-size: 1.2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 0.5rem;
+}
+
+.poem-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    flex-grow: 1;
+    white-space: pre-wrap;
+}
+
+.poem-signature {
+    text-align: right;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+.note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 1rem;
+    margin-top: auto;
+}
+
+.note-meta {
+    font-size: 0.8rem;
+}
+
+.vote-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.vote-btn {
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s ease;
+    font-family: var(--font-mono);
+}
+
+.vote-btn:hover {
+    background: rgba(0,0,0,0.05);
+    border-color: var(--black);
+}
+
+.vote-btn:active {
+    transform: scale(0.9);
+}
+
+.vote-btn.up:hover {
+    color: green;
+}
+
+.vote-btn.down:hover {
+    color: var(--dark-raspberry);
+}
+
+/* --- Editor View --- */
+
+#editor-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.editor-container {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.editor-header h2 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+}
+
+.card-paper {
+    background: var(--white);
+    border: 2px solid var(--black);
+    padding: 3rem;
+    text-align: left;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 12px 12px 0px rgba(0,0,0,0.05);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 1.5rem;
+}
+
+.line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.line.right {
+    justify-content: flex-end;
+    margin-top: auto;
+    text-align: right;
+    display: block; /* For manual line breaking like the ref */
+}
+
+.label {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+input[type="text"] {
+    border: none;
+    border-bottom: 1px solid transparent;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    background: transparent;
+    color: #888;
+    outline: none;
+    width: 200px;
+}
+
+input[type="text"]:focus {
+    color: var(--black);
+}
+
+textarea {
+    border: none;
+    width: 100%;
+    min-height: 150px;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    resize: none;
+    background: transparent;
+    outline: none;
+    line-height: 1.6;
+    color: #666;
+}
+
+textarea:focus {
+    color: var(--black);
+}
+
+.editor-actions {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.secondary-btn, .primary-btn {
+    font-family: var(--font-mono);
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-btn {
+    background: var(--white);
+    border: 2px solid var(--black);
+    color: var(--black);
+}
+
+.secondary-btn:hover {
+    background: #f0f0f0;
+}
+
+.primary-btn {
+    background: var(--black);
+    border: 2px solid var(--black);
+    color: var(--white);
+}
+
+.primary-btn:hover {
+    background: #333;
+}
+
+/* Floating Action Button */
+.fab {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, background 0.2s ease;
+    z-index: 100;
+}
+
+.fab:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: var(--dark-raspberry);
+}
+
+/* Animations */
+@keyframes popIn {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    #app { padding: 1rem; }
+    .fab { bottom: 2rem; right: 2rem; }
+    .card-paper { padding: 1.5rem; }
+}

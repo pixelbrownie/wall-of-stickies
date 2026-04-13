@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry Scrapbook | Digital Notice Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Wall View -->
+        <main id="wall-view" class="view">
+            <header class="wall-header">
+                <h1>Poetry Scrapbook</h1>
+                <p>Pin your soul to the wall.</p>
+            </header>
+            
+            <div id="notes-grid" class="notes-grid">
+                <!-- Sticky notes will be injected here -->
+            </div>
+
+            <button id="add-note-btn" class="fab" aria-label="Add new note">
+                <span class="plus-icon">+</span>
+            </button>
+        </main>
+
+        <!-- Editor View -->
+        <section id="editor-view" class="view hidden">
+            <div class="editor-container">
+                <header class="editor-header">
+                    <h2>WRITE THE CARD</h2>
+                </header>
+
+                <div class="card-editor">
+                    <div class="card-paper">
+                        <div class="card-content">
+                            <div class="line">
+                                <span class="label">Title:</span>
+                                <input type="text" id="title-input" placeholder="Name of your poem..." maxlength="30">
+                            </div>
+                            
+                            <textarea id="poem-input" placeholder="I have so much to tell you, but only this much space on this card! Still, you must know..." maxlength="280"></textarea>
+                            
+                            <div class="line right">
+                                <span class="label">Sincerely,</span>
+                                <input type="text" id="sender-input" placeholder="Secret Admirer" maxlength="30">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor-actions">
+                    <button id="back-btn" class="secondary-btn">BACK</button>
+                    <button id="submit-btn" class="primary-btn">NEXT</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
