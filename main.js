@@ -62,15 +62,15 @@ function renderNotes() {
             <div class="note-content">
                 <p class="poem-title"><strong>${note.title || 'Untitled'}</strong></p>
                 <p class="poem-text">${note.text}</p>
-                <p class="poem-signature"><strong>Sincerely,</strong><br>${note.sender}</p>
+                <p class="poem-signature">${note.sender}</p>
             </div>
             <div class="note-footer">
                 <span class="note-meta">${new Date(note.date).toLocaleDateString()}</span>
                 <div class="vote-actions">
-                    <button class="vote-btn up" onclick="handleVote('${note.id}', 'up')" title="Thumbs Up">
+                    <button class="vote-btn up ${note.userVote === 'up' ? 'active' : ''}" onclick="handleVote('${note.id}', 'up')" title="Thumbs Up">
                         👍 <span class="vote-count">${note.upvotes || 0}</span>
                     </button>
-                    <button class="vote-btn down" onclick="handleVote('${note.id}', 'down')" title="Thumbs Down">
+                    <button class="vote-btn down ${note.userVote === 'down' ? 'active' : ''}" onclick="handleVote('${note.id}', 'down')" title="Thumbs Down">
                         👎 <span class="vote-count">${note.downvotes || 0}</span>
                     </button>
                 </div>
@@ -113,11 +113,29 @@ function handleAddNote() {
 function handleVote(id, type) {
     notes = notes.map(note => {
         if (note.id === id) {
-            if (type === 'up') {
-                return { ...note, upvotes: (note.upvotes || 0) + 1 };
-            } else if (type === 'down') {
-                return { ...note, downvotes: (note.downvotes || 0) + 1 };
+            const currentVote = note.userVote || null;
+            let newUp = note.upvotes || 0;
+            let newDown = note.downvotes || 0;
+            let newUserVote = type;
+
+            // Case 1: Undo current vote
+            if (currentVote === type) {
+                if (type === 'up') newUp = Math.max(0, newUp - 1);
+                if (type === 'down') newDown = Math.max(0, newDown - 1);
+                newUserVote = null;
+            } 
+            // Case 2: Change/Add vote
+            else {
+                // Remove old vote first
+                if (currentVote === 'up') newUp = Math.max(0, newUp - 1);
+                if (currentVote === 'down') newDown = Math.max(0, newDown - 1);
+                
+                // Add new vote
+                if (type === 'up') newUp += 1;
+                if (type === 'down') newDown += 1;
             }
+
+            return { ...note, upvotes: newUp, downvotes: newDown, userVote: newUserVote };
         }
         return note;
     });

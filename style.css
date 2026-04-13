@@ -77,7 +77,6 @@ body {
     justify-content: space-between;
     box-shadow: 4px 4px 0px var(--black);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .sticky-note:hover {
@@ -151,12 +150,16 @@ body {
     transform: scale(0.9);
 }
 
-.vote-btn.up:hover {
+.vote-btn.up.active {
+    background: rgba(0, 128, 0, 0.1);
     color: green;
+    border-color: green;
 }
 
-.vote-btn.down:hover {
+.vote-btn.down.active {
+    background: rgba(134, 22, 87, 0.1);
     color: var(--dark-raspberry);
+    border-color: var(--dark-raspberry);
 }
 
 /* --- Editor View --- */
