@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="app">
         <!-- Main Wall View -->
         <main id="wall-view" class="view">
             <header class="wall-header">
-                <h1>Poetry Scrapbook</h1>
-                <p>Pin your soul to the wall.</p>
+                <h1>My Poetry Scrapbook</h1>
+                <p>journaling my heart out</p>
             </header>
-            
+
             <div id="notes-grid" class="notes-grid">
                 <!-- Sticky notes will be injected here -->
             </div>
@@ -41,9 +43,11 @@
                                 <span class="label">Title:</span>
                                 <input type="text" id="title-input" placeholder="Name of your poem..." maxlength="30">
                             </div>
-                            
-                            <textarea id="poem-input" placeholder="I have so much to tell you, but only this much space on this card! Still, you must know..." maxlength="280"></textarea>
-                            
+
+                            <textarea id="poem-input"
+                                placeholder="I have so much to tell you, but only this much space on this card! Still, you must know..."
+                                maxlength="280"></textarea>
+
                             <div class="line right">
                                 <input type="text" id="sender-input" placeholder="Your Name" maxlength="30">
                             </div>
@@ -61,4 +65,5 @@
 
     <script src="main.js"></script>
 </body>
+
 </html>

@@ -59,6 +59,7 @@ function renderNotes() {
         noteEl.style.transform = `rotate(${note.rotation || 0}deg)`;
         
         noteEl.innerHTML = `
+            <button class="delete-btn" onclick="deleteNote('${note.id}')" title="Delete Note">×</button>
             <div class="note-content">
                 <p class="poem-title"><strong>${note.title || 'Untitled'}</strong></p>
                 <p class="poem-text">${note.text}</p>
@@ -144,8 +145,17 @@ function handleVote(id, type) {
     renderNotes();
 }
 
-// Global scope for onclick attribute
+function deleteNote(id) {
+    if (confirm("Are you sure you want to delete this poem? This cannot be undone.")) {
+        notes = notes.filter(note => note.id !== id);
+        saveToLocalStorage();
+        renderNotes();
+    }
+}
+
+// Global scope for onclick attributes
 window.handleVote = handleVote;
+window.deleteNote = deleteNote;
 
 function saveToLocalStorage() {
     localStorage.setItem('scrapbook-notes', JSON.stringify(notes));
