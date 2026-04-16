@@ -195,5 +195,69 @@ function addDefaultNotes() {
     renderNotes();
 }
 
+function createRainButtons() {
+    const count = 18;
+    const rainContainer = document.createElement('div');
+    rainContainer.id = 'rain-overlay';
+    document.body.appendChild(rainContainer);
+
+    for (let i = 0; i < count; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'rain-button';
+        btn.type = 'button';
+        btn.setAttribute('aria-hidden', 'true');
+        btn.tabIndex = -1;
+
+        const size = 42 + Math.round(Math.random() * 28);
+        btn.style.width = `${size}px`;
+        btn.style.height = `${size}px`;
+        btn.style.left = `${Math.random() * 92}vw`;
+        btn.style.animationDuration = `${4 + Math.random() * 4}s`;
+        btn.style.animationDelay = `${-(Math.random() * 8)}s`;
+        btn.style.opacity = `${0.55 + Math.random() * 0.35}`;
+
+        rainContainer.appendChild(btn);
+    }
+}
+
+function saveToLocalStorage() {
+    localStorage.setItem('scrapbook-notes', JSON.stringify(notes));
+}
+
+function clearInputs() {
+    titleInput.value = '';
+    poemInput.value = '';
+    senderInput.value = '';
+}
+
+function addDefaultNotes() {
+    const defaults = [
+        {
+            id: '1',
+            title: 'Mist and Memory',
+            text: 'I saw you in the mist,\nA ghost of what could be.\nA memory I never had,\nBut one I feel so deep.',
+            sender: 'The Dreamer',
+            rotation: -1.5,
+            date: new Date().toISOString(),
+            upvotes: 5,
+            downvotes: 1
+        },
+        {
+            id: '2',
+            title: 'Loneliness of the Moon',
+            text: 'How lonely it must be,\nTo watch the world while we sleep.\nI leave this note to say,\nI see you.',
+            sender: 'Night Owl',
+            rotation: 2.1,
+            date: new Date().toISOString(),
+            upvotes: 12,
+            downvotes: 0
+        }
+    ];
+    notes = defaults;
+    saveToLocalStorage();
+    renderNotes();
+}
+
 // Start the app
 init();
+createRainButtons();
